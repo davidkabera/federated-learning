@@ -1,0 +1,83 @@
+// Federated learning lab: Talos cluster + Kubernetes workloads.
+// Mirrors the cluster/pipeline flowchart used in the docs.
+
+specification {
+  element cluster
+  element node
+  element workload
+  element store
+}
+
+model {
+  talos = cluster 'Talos Linux cluster' {
+    description 'Immutable OS nodes that run Kubernetes. The cluster does not know it is training models.'
+
+    cp = node 'Control plane node(s)' {
+      description 'API server, etcd, scheduler'
+      technology 'Talos Linux'
+    }
+    w1 = node 'Worker node' {
+      technology 'Talos Linux'
+    }
+    w2 = node 'Worker node' {
+      technology 'Talos Linux'
+    }
+    w3 = node 'Worker node' {
+      technology 'Talos Linux'
+    }
+
+    cp -> w1 'schedules'
+    cp -> w2 'schedules'
+    cp -> w3 'schedules'
+  }
+
+  k8s = cluster 'What Kubernetes schedules' {
+    description 'Pods, a Job, Redis, and a shared volume. This is the federated learning pipeline.'
+
+    redis = store 'Redis' {
+      description 'round state + coordination'
+    }
+    pvc = store 'Shared persistent volume' {
+      description 'MNIST shards + model checkpoints'
+      technology 'ReadWriteMany PVC'
+    }
+    p1 = workload 'Trainer pod A'
+    p2 = workload 'Trainer pod B'
+    p3 = workload 'Trainer pod C'
+    agg = workload 'FedAvg aggregation Job'
+
+    p1 -> redis 'round state'
+    p2 -> redis 'round state'
+    p3 -> redis 'round state'
+    p1 -> pvc 'checkpoints'
+    p2 -> pvc 'checkpoints'
+    p3 -> pvc 'checkpoints'
+    redis -> agg 'READY_TO_AGGREGATE'
+    pvc -> agg 'client updates'
+  }
+
+  talos.w1 -> k8s.p1 'runs'
+  talos.w2 -> k8s.p2 'runs'
+  talos.w3 -> k8s.p3 'runs'
+}
+
+views {
+  view index {
+    title 'Federated learning on Talos'
+    description 'Control plane, workers, trainer pods, Redis, shared storage, and FedAvg.'
+    include *
+  }
+
+  view talos of talos {
+    title 'Talos Linux cluster'
+    description 'Control plane schedules work onto three worker nodes.'
+    include *
+  }
+
+  view workloads of k8s {
+    title 'What Kubernetes schedules'
+    description 'Trainers coordinate through Redis and share checkpoints on the PVC. FedAvg reads both.'
+    include *
+    include talos.w1, talos.w2, talos.w3
+  }
+}

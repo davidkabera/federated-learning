@@ -1,0 +1,16 @@
+.likec4-embed {
+	height: min(72vh, 720px);
+	min-height: 420px;
+	margin-block: 1rem;
+	overflow: hidden;
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 0.75rem;
+	background: var(--sl-color-bg);
+}
+
+.likec4-fallback {
+	display: grid;
+	place-items: center;
+	height: 100%;
+	color: var(--sl-color-gray-3);
+}

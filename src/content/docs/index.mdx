@@ -1,0 +1,57 @@
+---
+title: Distributed Federated Learning on Talos Linux
+description: Lab documentation covering Talos Kubernetes infrastructure, the federated learning pipeline, and how CNNs relate to FedAvg.
+template: splash
+hero:
+  tagline: A three-node Talos cluster that schedules federated MNIST training without pooling client data.
+  actions:
+    - text: Part 1 — Infrastructure
+      link: /infrastructure/
+      icon: right-arrow
+    - text: Part 2 — FL Pipeline
+      link: /fl-pipeline/
+      icon: rocket
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## What this lab is
+
+The cluster is the factory floor. Kubernetes schedules pods, mounts shared storage, and routes traffic. It does not know it is running federated learning.
+
+The FL pipeline is a simulation: each trainer pod is a client with its own MNIST shard. The algorithm is federated; the data still lives on a shared PVC. The point of the lab is coordination mechanics, not phone-fleet logistics.
+
+<CardGrid stagger>
+	<Card title="Part 1 — Infrastructure" icon="laptop">
+		[Talos Kubernetes cluster](/infrastructure/): node roles, Flannel networking, NFS `ReadWriteMany` storage, local registry, and `talosctl` / `kubectl` context hygiene.
+	</Card>
+	<Card title="Part 2 — FL Pipeline" icon="puzzle">
+		[Trainers, Redis, and FedAvg](/fl-pipeline/): init job, non-IID shards, round coordination, weighted averaging, and the Kubernetes manifests that bind to Part 1.
+	</Card>
+	<Card title="Architecture" icon="information">
+		[LikeC4 model](/architecture/): Talos nodes, trainer pods, Redis, the shared PVC, and the FedAvg job as an interactive diagram.
+	</Card>
+	<Card title="CNN vs Federated Learning" icon="open-book">
+		[Model vs protocol](/cnn-vs-fl/): the CNN answers *what learns*; federated learning answers *how learning is organised* across isolated clients.
+	</Card>
+</CardGrid>
+
+## How the pieces fit
+
+```
+Oracle VM Box
+│
+├── talos-cp-01       Control plane (API, etcd, scheduler)
+├── talos-worker-01   Trainer client A
+└── talos-worker-02   Trainer client B
+
+What Kubernetes sees          What FL sees
+─────────────────────         ─────────────────────
+Deployment (replicas)     →   trainer clients
+Job                       →   FedAvg aggregation
+Service (ClusterIP)       →   Redis coordination bus
+PVC (ReadWriteMany)       →   shared model checkpoints
+```
+
+Read **Part 1** first so the cluster is Ready, then deploy **Part 2**. Use **CNN vs Federated Learning** when you need a clean split between the model architecture and the training protocol.

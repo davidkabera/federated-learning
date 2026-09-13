@@ -1,0 +1,12 @@
+---
+title: Kubernetes workloads
+description: LikeC4 view of trainer pods, Redis coordination, the shared PVC, and the FedAvg aggregation job.
+---
+
+import LikeC4View from '../../../components/LikeC4View.astro';
+
+The pipeline from [Part 2](/fl-pipeline/). Kubernetes does not know this is federated learning. It sees a Deployment, a Job, a Service, and a PVC.
+
+<LikeC4View viewId="workloads" />
+
+Trainer pods poll Redis until a round is `OPEN`, train on their shard, write weights to the PVC, then increment the round `done` counter. When every client has reported, Redis is `READY_TO_AGGREGATE` and the FedAvg job averages the checkpoints.

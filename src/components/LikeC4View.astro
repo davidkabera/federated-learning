@@ -1,0 +1,19 @@
+---
+import { LikeC4View as ReactLikeC4View, type LikeC4ViewId } from 'likec4:react';
+
+interface Props {
+	viewId: LikeC4ViewId;
+}
+
+const { viewId } = Astro.props;
+---
+
+<div class="likec4-embed">
+	<ReactLikeC4View
+		viewId={viewId}
+		keepAspectRatio
+		client:only="react"
+	>
+		<div slot="fallback" class="likec4-fallback">Loading diagram…</div>
+	</ReactLikeC4View>
+</div>

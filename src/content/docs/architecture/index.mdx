@@ -1,0 +1,18 @@
+---
+title: Cluster and pipeline
+description: LikeC4 model of the Talos cluster, worker nodes, trainer pods, Redis, shared storage, and FedAvg.
+---
+
+import LikeC4View from '../../../components/LikeC4View.astro';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+This view is the architecture model for Parts 1 and 2. Kubernetes schedules trainer pods onto worker nodes. Those pods talk to Redis for round coordination and to a shared volume for MNIST shards and checkpoints. The FedAvg job wakes from Redis and reads updates from the PVC.
+
+<LikeC4View viewId="index" />
+
+Click a container to open a closer view. The same model is split out in the Architecture submenu:
+
+<CardGrid>
+	<LinkCard title="Talos cluster" href="/architecture/talos/" description="Control plane and three worker nodes." />
+	<LinkCard title="Kubernetes workloads" href="/architecture/workloads/" description="Trainers, Redis, PVC, and the FedAvg job." />
+</CardGrid>
