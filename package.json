@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:pages": "bash scripts/build-github-pages.sh",
     "preview": "astro preview",
     "astro": "astro"
   },

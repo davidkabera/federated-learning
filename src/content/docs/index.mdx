@@ -6,10 +6,10 @@ hero:
   tagline: A three-node Talos cluster that schedules federated MNIST training without pooling client data.
   actions:
     - text: Part 1 — Infrastructure
-      link: /infrastructure/
+      link: /federated-learning/infrastructure/
       icon: right-arrow
     - text: Part 2 — FL Pipeline
-      link: /fl-pipeline/
+      link: /federated-learning/fl-pipeline/
       icon: rocket
       variant: minimal
 ---
@@ -24,16 +24,16 @@ The FL pipeline is a simulation: each trainer pod is a client with its own MNIST
 
 <CardGrid stagger>
 	<Card title="Part 1 — Infrastructure" icon="laptop">
-		[Talos Kubernetes cluster](/infrastructure/): node roles, Flannel networking, NFS `ReadWriteMany` storage, local registry, and `talosctl` / `kubectl` context hygiene.
+		[Talos Kubernetes cluster](/federated-learning/infrastructure/): node roles, Flannel networking, NFS `ReadWriteMany` storage, local registry, and `talosctl` / `kubectl` context hygiene.
 	</Card>
 	<Card title="Part 2 — FL Pipeline" icon="puzzle">
-		[Trainers, Redis, and FedAvg](/fl-pipeline/): init job, non-IID shards, round coordination, weighted averaging, and the Kubernetes manifests that bind to Part 1.
+		[Trainers, Redis, and FedAvg](/federated-learning/fl-pipeline/): init job, non-IID shards, round coordination, weighted averaging, and the Kubernetes manifests that bind to Part 1.
 	</Card>
 	<Card title="Architecture" icon="information">
-		[LikeC4 model](/architecture/): Talos nodes, trainer pods, Redis, the shared PVC, and the FedAvg job as an interactive diagram.
+		[LikeC4 model](/federated-learning/architecture/): Talos nodes, trainer pods, Redis, the shared PVC, and the FedAvg job as an interactive diagram.
 	</Card>
 	<Card title="CNN vs Federated Learning" icon="open-book">
-		[Model vs protocol](/cnn-vs-fl/): the CNN answers *what learns*; federated learning answers *how learning is organised* across isolated clients.
+		[Model vs protocol](/federated-learning/cnn-vs-fl/): the CNN answers *what learns*; federated learning answers *how learning is organised* across isolated clients.
 	</Card>
 </CardGrid>
 

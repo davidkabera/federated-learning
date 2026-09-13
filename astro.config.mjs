@@ -6,6 +6,9 @@ import { LikeC4VitePlugin } from 'likec4/vite-plugin';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://davidkabera.github.io',
+	base: '/federated-learning',
+	trailingSlash: 'always',
 	integrations: [
 		starlight({
 			title: 'Federated Learning Lab',

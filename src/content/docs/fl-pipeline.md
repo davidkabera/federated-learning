@@ -22,7 +22,7 @@ Service (ClusterIP)       →   Redis coordination bus
 PVC (ReadWriteMany)       →   shared model checkpoint store
 ```
 
-The same mapping is the [Architecture](/architecture/) LikeC4 model (submenu after this page): Talos nodes, trainer pods, Redis, the shared PVC, and FedAvg.
+The same mapping is the [Architecture](/federated-learning/architecture/) LikeC4 model (submenu after this page): Talos nodes, trainer pods, Redis, the shared PVC, and FedAvg.
 
 ---
 

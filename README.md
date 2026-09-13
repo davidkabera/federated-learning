@@ -18,6 +18,22 @@ This project needs **Node.js 22+**. With nvm: `nvm use`.
 | Command | Action |
 | :------ | :----- |
 | `npm install` | Install dependencies |
-| `npm run dev` | Dev server at `http://localhost:4321` |
+| `npm run dev` | Dev server at `http://localhost:4321/federated-learning/` |
 | `npm run build` | Production build to `./dist/` |
+| `npm run build:pages` | Install deps if needed, then build for GitHub Pages |
 | `npm run preview` | Preview the production build |
+
+## GitHub Pages
+
+The site publishes to **https://davidkabera.github.io/federated-learning/**.
+
+Pushes to `main` run `.github/workflows/deploy.yml`, which calls `scripts/build-github-pages.sh` and deploys `dist/`.
+
+In the GitHub repo: **Settings → Pages → Source → GitHub Actions**.
+
+Local Pages-style build:
+
+```bash
+chmod +x scripts/build-github-pages.sh
+npm run build:pages
+```

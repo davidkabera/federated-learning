@@ -5,8 +5,8 @@ description: LikeC4 view of the Talos control plane scheduling work onto three w
 
 import LikeC4View from '../../../components/LikeC4View.astro';
 
-The infrastructure layer from [Part 1](/infrastructure/). The OS is Talos: sealed nodes with no SSH. The control plane runs the API server, etcd, and the scheduler. Workers run kubelet and containerd.
+The infrastructure layer from [Part 1](/federated-learning/infrastructure/). The OS is Talos: sealed nodes with no SSH. The control plane runs the API server, etcd, and the scheduler. Workers run kubelet and containerd.
 
 <LikeC4View viewId="talos" />
 
-Each worker later runs one trainer pod. That mapping is in [Kubernetes workloads](/architecture/workloads/) and on the [cluster and pipeline](/architecture/) overview.
+Each worker later runs one trainer pod. That mapping is in [Kubernetes workloads](/federated-learning/architecture/workloads/) and on the [cluster and pipeline](/federated-learning/architecture/) overview.
